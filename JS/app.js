@@ -18,10 +18,10 @@ var cthulhu = new BusMal('cthlulhu', "assets/cthulhu.jpg");
 var duck = new BusMal('duck', "assets/dog-duck.jpg");
 var dragon = new BusMal('dragon', "assets/dragon.jpg");
 var pen = new BusMal('pen', "assets/pen.jpg");
-var sweep = new BusMal('sweep', "assets/pet-sweep.jpg");
+var sweep = new BusMal('sweep', "assets/sweep.png");
 var scissors = new BusMal('scissors', "assets/scissors.jpg");
 var shark = new BusMal('shark', "assets/shark.jpg");
-var petSweep = new BusMal('pet', "assets/pen.jpg");
+var petSweep = new BusMal('pet', "assets/pet-sweep.jpg");
 var tauntaun = new BusMal('tauntaun', "assets/tauntaun.jpg");
 var unicorn = new BusMal('unicorn', "assets/unicorn.jpg");
 var usb = new BusMal('usb', "assets/usb.gif");
@@ -48,40 +48,55 @@ var thirdImg;
 
 ///// rendering function//////
 function rendering1() {
-  var ni= randomSelector();
-  if(ni===18 || ni===19){var ni =17}
+    var ni = randomSelector();
+    if (ni === 18 || ni === 19) { var ni = 17 }
     firstImg = document.createElement('img');
     firstImg.src = allElements[ni].path;
     render.appendChild(firstImg);
     allElements[ni].timeShowed++;
+    var user = firstImg.addEventListener('click', choose);
+    function choose(event) {
+        //event.preventDefault();
+        allElements[ni].timeSelected++;
+        rendering1();
+
+    }
+    
+
+    //console.log(allElements[ni].timeShowed);
 
     socondtImg = document.createElement('img');
     socondtImg.src = allElements[ni+1].path;
     render.appendChild(socondtImg);
     allElements[ni+1].timeShowed++;
+    allElements[ni+1].timeShowed++;
+    var user1 = socondtImg.addEventListener('click', choose1);
+    function choose1(event){
+        //event.preventDefault();
+        allElements[ni+1].timeSelected++;
+        rendering1();
+        
+
+    }
+    
+    //console.log(allElements[ni+1].timeShowed);
 
     thirdImg = document.createElement('img');
     thirdImg.src = allElements[ni+2].path;
     render.appendChild(thirdImg);
     allElements[ni+2].timeShowed++;
-}
+    var user2 = thirdImg.addEventListener('click', choose2);
+    function choose2(event){
+        //event.preventDefault();
+        allElements[ni+1].timeSelected++;
+        rendering1();
+    }
     
+    //console.log(allElements[ni+2].timeShowed);
+
+}
 /////////////////
 rendering1();
-/////////////
-
-
-
-var user = render.addEventListener('click', choose);
-
-
-function choose(event) {
-
-    event.preventDefault();
-  
-    alert(event.target.name.value);
-
-}
 
 
 
@@ -96,26 +111,44 @@ function choose(event) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+// function choose(event) {
+
+//     event.preventDefault();
+//     var choosen = event.target.name;
+//     alert(event.name)
 
 // }
 
-// console.log(bag.timeShowed);
-// console.log(banana.timeShowed);
-// console.log(boots.timeShowed);
-// console.log(bathroom.timeShowed);
-// console.log(breakfast.timeShowed);
-// console.log(chair.timeShowed);
-// console.log(glass.timeShowed);
-// console.log(water.timeShowed);
-// console.log(unicorn.timeShowed);
-// console.log(usb.timeShowed);
-// console.log(tauntaun.timeShowed);
-// console.log(petSweep.timeShowed);
-// console.log(shark.timeShowed);
-// console.log(sweep.timeShowed);
-// console.log(scissors.timeShowed);
-// console.log(pen.timeShowed);
-// console.log(duck.timeShowed);
-// console.log(dragon.timeShowed);
-// console.log(cthulhu.timeShowed);
-// console.log(bubblegum.timeShowed);
+// }
+// function cons(){
+// console.log(bag.timeSelected);
+// console.log(banana.timeSelected);
+// console.log(boots.timeSelected);
+// console.log(bathroom.timeSelected);
+// console.log(breakfast.timeSelected);
+// console.log(chair.timeSelected);
+// console.log(glass.timeSelected);
+// console.log(water.timeSelected);
+// console.log(unicorn.timeSelected);
+// console.log(usb.timeSelected);
+// console.log(tauntaun.timeSelected);
+// console.log(petSweep.timeSelected);
+// console.log(shark.timeSelected);;
+// console.log(sweep.timeSelected);
+// console.log(scissors.timeSelected);
+// console.log(pen.timeSelected);
+// console.log(duck.timeSelected);
+// console.log(dragon.timeSelected);
+// console.log(cthulhu.timeSelected);
+// console.log(bubblegum.timeSelected);
+// }
