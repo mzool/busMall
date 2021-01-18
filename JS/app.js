@@ -56,14 +56,17 @@ function rendering1() {
     allElements[ni].timeShowed++;
     var user = firstImg.addEventListener('click', choose);
     function choose(event) {
-        //event.preventDefault();
+        event.preventDefault();
         allElements[ni].timeSelected++;
+        render.removeChild(firstImg);
+        render.removeChild(socondtImg);
+        render.removeChild(thirdImg);
         rendering1();
 
     }
     
 
-    //console.log(allElements[ni].timeShowed);
+    //console.log(randomSelector);
 
     socondtImg = document.createElement('img');
     socondtImg.src = allElements[ni+1].path;
@@ -72,10 +75,13 @@ function rendering1() {
     allElements[ni+1].timeShowed++;
     var user1 = socondtImg.addEventListener('click', choose1);
     function choose1(event){
-        //event.preventDefault();
+        event.preventDefault();
         allElements[ni+1].timeSelected++;
+        render.removeChild(firstImg);
+        render.removeChild(socondtImg);
+        render.removeChild(thirdImg);
         rendering1();
-        
+
 
     }
     
@@ -87,10 +93,16 @@ function rendering1() {
     allElements[ni+2].timeShowed++;
     var user2 = thirdImg.addEventListener('click', choose2);
     function choose2(event){
-        //event.preventDefault();
+        event.preventDefault();
         allElements[ni+1].timeSelected++;
+        render.removeChild(firstImg);
+        render.removeChild(socondtImg);
+        render.removeChild(thirdImg);
         rendering1();
+
     }
+   
+
     
     //console.log(allElements[ni+2].timeShowed);
 
