@@ -1,6 +1,33 @@
+
+body{
+    background-color: rgb(177, 177, 245);
+}
+#vote{
+
+    border: solid red;
+    width: 17cm;
+    position: relative;
+    left: 7cm;
+    top: 2cm;
+    height:20cm ; 
+    width: 20cm;
+}
 img{
     height: 3cm;
     width: 5cm;
     margin: 5px;
     border: solid black;
+    display:inline-block;
+    
+}
+li{
+    font-size: larger;
+    position: relative;
+    left: 1cm;
+  
+}
+#bb{
+    color: red;
+    width: 2cm;
+    height: 2cm;
 }
