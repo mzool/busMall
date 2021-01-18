@@ -45,65 +45,84 @@ var render = document.getElementById('vote');
 var firstImg;
 var socondtImg;
 var thirdImg;
+var attempts = 0;
 
 ///// rendering function//////
 function rendering1() {
-    var ni = randomSelector();
-    if (ni === 18 || ni === 19) { var ni = 17 }
-    firstImg = document.createElement('img');
-    firstImg.src = allElements[ni].path;
-    render.appendChild(firstImg);
-    allElements[ni].timeShowed++;
-    var user = firstImg.addEventListener('click', choose);
-    function choose(event) {
-        event.preventDefault();
-        allElements[ni].timeSelected++;
-        render.removeChild(firstImg);
-        render.removeChild(socondtImg);
-        render.removeChild(thirdImg);
-        rendering1();
+    if (attempts < 25) {
+        var ni = randomSelector();
+        if (ni === 18 || ni === 19) { var ni = 17 }
+        firstImg = document.createElement('img');
+        firstImg.src = allElements[ni].path;
+        render.appendChild(firstImg);
+        allElements[ni].timeShowed++;
+        var user = firstImg.addEventListener('click', choose);
+        function choose(event) {
+            event.preventDefault();
+            allElements[ni].timeSelected++;
+            render.removeChild(firstImg);
+            render.removeChild(socondtImg);
+            render.removeChild(thirdImg);
+            attempts++;
+            rendering1();
 
+        }
+
+
+        //console.log(randomSelector);
+
+        socondtImg = document.createElement('img');
+        socondtImg.src = allElements[ni + 1].path;
+        render.appendChild(socondtImg);
+        allElements[ni + 1].timeShowed++;
+        allElements[ni + 1].timeShowed++;
+        var user1 = socondtImg.addEventListener('click', choose1);
+        function choose1(event) {
+            event.preventDefault();
+            allElements[ni + 1].timeSelected++;
+            render.removeChild(firstImg);
+            render.removeChild(socondtImg);
+            render.removeChild(thirdImg);
+            attempts++;
+            rendering1();
+
+
+        }
+
+        //console.log(allElements[ni+1].timeShowed);
+
+        thirdImg = document.createElement('img');
+        thirdImg.src = allElements[ni + 2].path;
+        render.appendChild(thirdImg);
+        allElements[ni + 2].timeShowed++;
+        var user2 = thirdImg.addEventListener('click', choose2);
+        function choose2(event) {
+            event.preventDefault();
+            allElements[ni + 1].timeSelected++;
+            render.removeChild(firstImg);
+            render.removeChild(socondtImg);
+            render.removeChild(thirdImg);
+            attempts++;
+            rendering1();
+        }
     }
-    
+    else {
 
-    //console.log(randomSelector);
-
-    socondtImg = document.createElement('img');
-    socondtImg.src = allElements[ni+1].path;
-    render.appendChild(socondtImg);
-    allElements[ni+1].timeShowed++;
-    allElements[ni+1].timeShowed++;
-    var user1 = socondtImg.addEventListener('click', choose1);
-    function choose1(event){
-        event.preventDefault();
-        allElements[ni+1].timeSelected++;
-        render.removeChild(firstImg);
-        render.removeChild(socondtImg);
-        render.removeChild(thirdImg);
-        rendering1();
-
-
+        var button = document.createElement('button');
+        render.appendChild(button);
+        button.addEventListener('click', showlist)
+        function showlist(event) {
+            event.preventDefault();
+            for (var i = 0; i < allElements.length; i++) {
+                var list = document.createElement('li');
+                render.appendChild(list),
+                    list.textContent = allElements[i].name + ':' + 'showed:' + allElements[i].timeShowed + 'selected:' + allElements[i].timeSelected;
+            }
+        }
     }
-    
-    //console.log(allElements[ni+1].timeShowed);
 
-    thirdImg = document.createElement('img');
-    thirdImg.src = allElements[ni+2].path;
-    render.appendChild(thirdImg);
-    allElements[ni+2].timeShowed++;
-    var user2 = thirdImg.addEventListener('click', choose2);
-    function choose2(event){
-        event.preventDefault();
-        allElements[ni+1].timeSelected++;
-        render.removeChild(firstImg);
-        render.removeChild(socondtImg);
-        render.removeChild(thirdImg);
-        rendering1();
 
-    }
-   
 
-    
     //console.log(allElements[ni+2].timeShowed);
 
 }
@@ -111,7 +130,7 @@ function rendering1() {
 rendering1();
 
 
-
+//  cons();
 
 
 
