@@ -46,17 +46,24 @@ var firstImg;
 var socondtImg;
 var thirdImg;
 var attempts = 0;
-
+var timeUserSelect=[];
+var chartLable = [];
+var rounds;
 ///// rendering function//////
+///////////////////////////////////////////////////////////////////////
 function rendering1() {
-    if (attempts < 5) {
+    if (attempts < rounds) {
         var ni = randomSelector();
         if (ni === 18 || ni === 19) { var ni = 17 }
+        if(attempts>0){
+        while ((ni * attempts) === (ni * (attempts - 1)) || (ni * attempts) === ((ni-1) * (attempts - 1)) || (ni * attempts) === ((ni-2) * (attempts - 1))   ){
+            var ni = randomSelector();
+        }}
         firstImg = document.createElement('img');
         firstImg.src = allElements[ni].path;
         render.appendChild(firstImg);
         allElements[ni].timeShowed++;
-        var user = firstImg.addEventListener('click', choose);
+        firstImg.addEventListener('click', choose);
         function choose(event) {
             event.preventDefault();
             allElements[ni].timeSelected++;
@@ -69,19 +76,18 @@ function rendering1() {
         }
 
 
-        //console.log(randomSelector);
+        //////////////////////////////////////////////////////
 
         socondtImg = document.createElement('img');
-        socondtImg.src = allElements[ni + 1].path;
+        socondtImg.src = allElements[ni+1].path;
         render.appendChild(socondtImg);
-        allElements[ni + 1].timeShowed++;
-        allElements[ni + 1].timeShowed++;
-        var user1 = socondtImg.addEventListener('click', choose1);
+        allElements[ni+1].timeShowed++;
+        socondtImg.addEventListener('click', choose1);
         function choose1(event) {
             event.preventDefault();
-            allElements[ni + 1].timeSelected++;
+            allElements[ni+1].timeSelected++;
+           render.removeChild(socondtImg);
             render.removeChild(firstImg);
-            render.removeChild(socondtImg);
             render.removeChild(thirdImg);
             attempts++;
             rendering1();
@@ -89,49 +95,110 @@ function rendering1() {
 
         }
 
-        //console.log(allElements[ni+1].timeShowed);
+        ///////////////////////////////////////////////////////////
 
         thirdImg = document.createElement('img');
-        thirdImg.src = allElements[ni + 2].path;
+        thirdImg.src = allElements[ni+2].path;
         render.appendChild(thirdImg);
-        allElements[ni + 2].timeShowed++;
-        var user2 = thirdImg.addEventListener('click', choose2);
+        allElements[ni+2].timeShowed++;
+        thirdImg.addEventListener('click', choose2);
         function choose2(event) {
             event.preventDefault();
-            allElements[ni + 1].timeSelected++;
-            render.removeChild(firstImg);
-            render.removeChild(socondtImg);
+            allElements[ni+2].timeSelected++;
             render.removeChild(thirdImg);
+            render.removeChild(socondtImg);
+            render.removeChild(firstImg);
             attempts++;
             rendering1();
         }
     }
+    /////////////////////////////////////////////////////////
     else {
+        
+for (var i = 0; i < allElements.length; i++){
+    timeUserSelect[i]=allElements[i].timeSelected;
+}
+
+
 
         var button = document.createElement('button');
         render.appendChild(button);
-        button.id="bb";
-        button.textContent="result";
-        
+        button.id = "bb";
+        button.textContent = "result";
+
         button.addEventListener('click', showlist)
         function showlist(event) {
             event.preventDefault();
             for (var i = 0; i < allElements.length; i++) {
                 var list = document.createElement('li');
                 render.appendChild(list),
-                    list.textContent = allElements[i].name + ':' + 'showed:' + allElements[i].timeShowed + 'selected:' + allElements[i].timeSelected+allElements[i].timeShowed/allElements[i].timeSelected ;
+                    list.textContent = allElements[i].name + ':' + ' showed: ' + allElements[i].timeShowed + ', selected: ' + allElements[i].timeSelected;
             }
-            button.removeEventListener('click',showlist);
+            var ctx = document.getElementById('chart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartLable,
+                    datasets: [{
+                        label: '# of Votes',
+                        data:timeUserSelect,
+            
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+            
+            
+            
+            
+            
+            
+            
+
+            button.removeEventListener('click', showlist);
+
+
         }
     }
 
 
 
-    //console.log(allElements[ni+2].timeShowed);
+
 
 }
-/////////////////
-rendering1();
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+for (var i = 0; i < allElements.length; i++) {
+
+    chartLable[i] = allElements[i].name;
+}
 
 
 
@@ -139,17 +206,31 @@ rendering1();
 
 
 
+var form = document.createElement('form');
+render.appendChild(form);
+var lable = document.createElement('label');
+form.appendChild(lable);
+lable.textContent='how many rounds you want to take?';
+var input = document.createElement('input');
+input.setAttribute('type','number');
+input.setAttribute('name','s');
+input.setAttribute('value','');
 
+form.appendChild(input);
 
+var sub = document.createElement("input");
+sub.setAttribute('type',"submit");
+sub.setAttribute('value',"Submit");
+form.appendChild(sub);
 
-
-
-
-
-
-
-
-
+form.addEventListener('submit',takeNumber);
+function takeNumber(event){
+    event.preventDefault();
+    var x=event.target.s.value;
+    rounds=x;
+    render.removeChild(form);
+    rendering1();
+}
 
 
 
