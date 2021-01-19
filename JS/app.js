@@ -34,11 +34,13 @@ var allElements = [bag, banana, bathroom, boots, breakfast, chair, bubblegum, ct
 //var source;
 //////////////
 
-function randomSelector() {
+function randomSelector1() {
     return Math.floor(Math.random() * allElements.length);
 }
-
-
+// function randomSelector2() {
+//     return Math.floor(Math.random() * ((allElements.length+1)*2));
+// }
+// console.log(randomSelector2());
 // randomSelector();
 /////////////////////////////
 var render = document.getElementById('vote');
@@ -46,27 +48,30 @@ var firstImg;
 var socondtImg;
 var thirdImg;
 var attempts = 0;
-var timeUserSelect=[];
+var timeUserSelect = [];
 var chartLable = [];
 var rounds;
+var previous = [];
+var randomNumb;
 ///// rendering function//////
 ///////////////////////////////////////////////////////////////////////
 function rendering1() {
+
     if (attempts < rounds) {
-        var ni = randomSelector();
-        if (ni === 18 || ni === 19) { var ni = 17 }
-        if(attempts>0){
-        while ((ni * attempts) === (ni * (attempts - 1)) || (ni * attempts) === ((ni-1) * (attempts - 1)) || (ni * attempts) === ((ni-2) * (attempts - 1))   ){
-            var ni = randomSelector();
-        }}
+        randomNumb = randomSelector1();
+        while(randomNumb === 18 || randomNumb === 19) { var randomNumb = 17 }
+      while (randomNumb === previous[attempts - 1] || randomNumb === (previous[attempts - 1] + 1) || randomNumb === (previous[attempts - 1] + 2)|| randomNumb === (previous[attempts - 1] - 1) || randomNumb === (previous[attempts - 1] - 2)) { randomNumb+=3}
+      if(randomNumb===20||randomNumb==19||randomNumb===18){randomNumb=0;}
+      previous[attempts] = randomNumb;
+    console.log(randomNumb);
         firstImg = document.createElement('img');
-        firstImg.src = allElements[ni].path;
+        firstImg.src = allElements[randomNumb].path;
         render.appendChild(firstImg);
-        allElements[ni].timeShowed++;
+        allElements[randomNumb].timeShowed++;
         firstImg.addEventListener('click', choose);
         function choose(event) {
             event.preventDefault();
-            allElements[ni].timeSelected++;
+            allElements[randomNumb].timeSelected++;
             render.removeChild(firstImg);
             render.removeChild(socondtImg);
             render.removeChild(thirdImg);
@@ -79,14 +84,14 @@ function rendering1() {
         //////////////////////////////////////////////////////
 
         socondtImg = document.createElement('img');
-        socondtImg.src = allElements[ni+1].path;
+        socondtImg.src = allElements[randomNumb + 1].path;
         render.appendChild(socondtImg);
-        allElements[ni+1].timeShowed++;
+        allElements[randomNumb + 1].timeShowed++;
         socondtImg.addEventListener('click', choose1);
         function choose1(event) {
             event.preventDefault();
-            allElements[ni+1].timeSelected++;
-           render.removeChild(socondtImg);
+            allElements[randomNumb + 1].timeSelected++;
+            render.removeChild(socondtImg);
             render.removeChild(firstImg);
             render.removeChild(thirdImg);
             attempts++;
@@ -98,13 +103,13 @@ function rendering1() {
         ///////////////////////////////////////////////////////////
 
         thirdImg = document.createElement('img');
-        thirdImg.src = allElements[ni+2].path;
+        thirdImg.src = allElements[randomNumb + 2].path;
         render.appendChild(thirdImg);
-        allElements[ni+2].timeShowed++;
+        allElements[randomNumb + 2].timeShowed++;
         thirdImg.addEventListener('click', choose2);
         function choose2(event) {
             event.preventDefault();
-            allElements[ni+2].timeSelected++;
+            allElements[randomNumb + 2].timeSelected++;
             render.removeChild(thirdImg);
             render.removeChild(socondtImg);
             render.removeChild(firstImg);
@@ -114,10 +119,10 @@ function rendering1() {
     }
     /////////////////////////////////////////////////////////
     else {
-        
-for (var i = 0; i < allElements.length; i++){
-    timeUserSelect[i]=allElements[i].timeSelected;
-}
+
+        for (var i = 0; i < allElements.length; i++) {
+            timeUserSelect[i] = allElements[i].timeSelected;
+        }
 
 
 
@@ -141,8 +146,8 @@ for (var i = 0; i < allElements.length; i++){
                     labels: chartLable,
                     datasets: [{
                         label: '# of Votes',
-                        data:timeUserSelect,
-            
+                        data: timeUserSelect,
+
                         backgroundColor: [
                             'rgba(255, 99, 132, 1)',
                             'rgba(54, 162, 235, 1)',
@@ -188,6 +193,7 @@ for (var i = 0; i < allElements.length; i++){
                         ],
                         borderWidth: 1
                     }]
+                    
                 },
                 options: {
                     scales: {
@@ -199,66 +205,44 @@ for (var i = 0; i < allElements.length; i++){
                     }
                 }
             });
-            
-            
-            
-            
-            
-            
-            
-
             button.removeEventListener('click', showlist);
-
-
         }
     }
-
-
-
-
-
 }
 ///////////////////////////////////////////////////////////////////////////////
 
 
-
+var shotimes=[];
 for (var i = 0; i < allElements.length; i++) {
-
     chartLable[i] = allElements[i].name;
+    shotimes[i] = allElements[i].timeShowed;
 }
-
-
-
-
-
-
-
+////////////////////////////////////////////////
 var form = document.createElement('form');
 render.appendChild(form);
 var lable = document.createElement('label');
 form.appendChild(lable);
-lable.textContent='how many rounds you want to take?';
+lable.textContent = 'how many rounds you want to take?';
 var input = document.createElement('input');
-input.setAttribute('type','number');
-input.setAttribute('name','s');
-input.setAttribute('value','');
-
+input.setAttribute('type', 'number');
+input.setAttribute('name', 's');
+input.setAttribute('value', '');
 form.appendChild(input);
-
 var sub = document.createElement("input");
-sub.setAttribute('type',"submit");
-sub.setAttribute('value',"Submit");
+sub.setAttribute('type', "submit");
+sub.setAttribute('value', "Submit");
 form.appendChild(sub);
-
-form.addEventListener('submit',takeNumber);
-function takeNumber(event){
+form.addEventListener('submit', takeNumber);
+function takeNumber(event) {
     event.preventDefault();
-    var x=event.target.s.value;
-    rounds=x;
+    var userInput = event.target.s.value;
+    console.log(userInput);
+    if (userInput === 0 || userInput === '') { rounds = 25; }
+    else { rounds = userInput; }
     render.removeChild(form);
     rendering1();
 }
-
+//////////////////////////////////////////////////////////////////
 
 
 
