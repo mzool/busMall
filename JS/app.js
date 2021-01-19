@@ -53,6 +53,7 @@ var chartLable = [];
 var rounds;
 var previous = [];
 var randomNumb;
+var showtimes=[];
 ///// rendering function//////
 ///////////////////////////////////////////////////////////////////////
 function rendering1() {
@@ -60,8 +61,9 @@ function rendering1() {
     if (attempts < rounds) {
         randomNumb = randomSelector1();
         while(randomNumb === 18 || randomNumb === 19) { var randomNumb = 17 }
+        if(attempts>0){
       while (randomNumb === previous[attempts - 1] || randomNumb === (previous[attempts - 1] + 1) || randomNumb === (previous[attempts - 1] + 2)|| randomNumb === (previous[attempts - 1] - 1) || randomNumb === (previous[attempts - 1] - 2)) { randomNumb+=3}
-      if(randomNumb===20||randomNumb==19||randomNumb===18){randomNumb=0;}
+      if(randomNumb>=20||randomNumb==19||randomNumb===18){randomNumb=0;}}
       previous[attempts] = randomNumb;
     console.log(randomNumb);
         firstImg = document.createElement('img');
@@ -122,6 +124,7 @@ function rendering1() {
 
         for (var i = 0; i < allElements.length; i++) {
             timeUserSelect[i] = allElements[i].timeSelected;
+            showtimes[i] = allElements[i].timeShowed;
         }
 
 
@@ -145,7 +148,7 @@ function rendering1() {
                 data: {
                     labels: chartLable,
                     datasets: [{
-                        label: '# of Votes',
+                        label: 'selected',
                         data: timeUserSelect,
 
                         backgroundColor: [
@@ -168,8 +171,19 @@ function rendering1() {
                             'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)',
                             'rgb(103, 247, 29)',
-                            'rgba(255, 159, 64, 1)'],
+                            'rgba(255, 159, 64, 1)',
+                          ],
                         borderColor: [
+                            'rgba(200, 200, 200, 1)',
+                          
+                        ],
+                        borderWidth: 1
+                    },{
+                        label: 'showed',
+                        data: showtimes,
+
+                        backgroundColor: [
+                            'rgba(200, 0, 0, 1)',
                             'rgba(255, 99, 132, 1)',
                             'rgba(54, 162, 235, 1)',
                             'rgba(255, 206, 86, 1)',
@@ -189,7 +203,11 @@ function rendering1() {
                             'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)',
                             'rgb(103, 247, 29)',
-                            'rgba(255, 159, 64, 1)'
+                            
+                          ],
+                        borderColor: [
+                            'rgba(200,200, 200, 1)',
+                          
                         ],
                         borderWidth: 1
                     }]
@@ -212,11 +230,13 @@ function rendering1() {
 ///////////////////////////////////////////////////////////////////////////////
 
 
-var shotimes=[];
+
 for (var i = 0; i < allElements.length; i++) {
     chartLable[i] = allElements[i].name;
-    shotimes[i] = allElements[i].timeShowed;
+    
+    
 }
+
 ////////////////////////////////////////////////
 var form = document.createElement('form');
 render.appendChild(form);
