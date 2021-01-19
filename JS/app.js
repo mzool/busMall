@@ -29,21 +29,26 @@ var water = new BusMal('water', "assets/water-can.jpg");
 var glass = new BusMal('glass', "assets/wine-glass.jpg");
 ////// Array for all objects///////
 var allElements = [bag, banana, bathroom, boots, breakfast, chair, bubblegum, cthulhu, duck, dragon, pen, sweep, scissors, shark, petSweep, tauntaun, unicorn, usb, water, glass];
-// for( var i =0; i<allElements.length;i++){console.log(allElements[i]);}
-//console.log(boots.path);
-//var source;
 //////////////
 
 function randomSelector1() {
     return Math.floor(Math.random() * allElements.length);
 }
-// function randomSelector2() {
-//     return Math.floor(Math.random() * ((allElements.length+1)*2));
-// }
-// console.log(randomSelector2());
-// randomSelector();
+/////////////////////////////////////////////////////////////////////////////
+// var storage=[];
+// for (let i = 0; i < allElements.length; i++) {
+//   storage[allElements[i].name]= JSON.stringify(allElements[i]);
+//   console.log(storage);
+//  }
+
+
+
+
+
+
 /////////////////////////////
 var render = document.getElementById('vote');
+
 var firstImg;
 var socondtImg;
 var thirdImg;
@@ -63,7 +68,7 @@ function rendering1() {
         while(randomNumb === 18 || randomNumb === 19) { var randomNumb = 17 }
         if(attempts>0){
       while (randomNumb === previous[attempts - 1] || randomNumb === (previous[attempts - 1] + 1) || randomNumb === (previous[attempts - 1] + 2)|| randomNumb === (previous[attempts - 1] - 1) || randomNumb === (previous[attempts - 1] - 2)) { randomNumb+=3}
-      if(randomNumb>=20||randomNumb==19||randomNumb===18){randomNumb=0;}}
+      if(randomNumb>=18){randomNumb=0;}}
       previous[attempts] = randomNumb;
     console.log(randomNumb);
         firstImg = document.createElement('img');
@@ -121,13 +126,13 @@ function rendering1() {
     }
     /////////////////////////////////////////////////////////
     else {
+       
 
         for (var i = 0; i < allElements.length; i++) {
             timeUserSelect[i] = allElements[i].timeSelected;
             showtimes[i] = allElements[i].timeShowed;
         }
-
-
+      localStorage.getItem(bag);
 
         var button = document.createElement('button');
         render.appendChild(button);
@@ -223,7 +228,8 @@ function rendering1() {
                     }
                 }
             });
-            button.removeEventListener('click', showlist);
+            
+             button.removeEventListener('click', showlist);
         }
     }
 }
@@ -263,7 +269,3 @@ function takeNumber(event) {
     rendering1();
 }
 //////////////////////////////////////////////////////////////////
-
-
-
-
