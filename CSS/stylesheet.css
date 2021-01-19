@@ -1,8 +1,54 @@
 
 body{
-    background-color: white;
+    max-width: 100%;
+    max-height: 2000px;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
 }
-#vote{
+header{
+    background-color: rgb(235, 63, 20);
+    margin-bottom: 3px;
+    opacity: .5;
+   border-bottom: dashed black;
+}
+
+main{
+    background-color: wheat ;
+
+}
+footer{
+    background-color:whitesmoke;
+    margin-top: 3px;
+    opacity: .5;
+   border-bottom: dashed black;
+}
+form{
+    border: solid black;
+    width: fit-content;
+    color: blue;
+    position: relative;
+    left: 300px;
+    top: 10px;
+}
+input:last-child{
+    color: black;
+    background-color: crimson;
+}
+img{
+    height: 3cm;
+    width: 5cm;
+    margin: 5px;
+    border: solid black;
+    display:inline-block;
+    position: relative;
+    left: 7cm;
+    top: 2cm;
+}
+#chart{
+    width: 10cm;
+    height: 5cm;
+}
+/* #vote{
 
     border: solid red;
     width: 17cm;
@@ -12,14 +58,7 @@ body{
     height:20cm ; 
     width: 20cm;
 }
-img{
-    height: 3cm;
-    width: 5cm;
-    margin: 5px;
-    border: solid black;
-    display:inline-block;
-    
-}
+
 li{
     font-size: larger;
     position: relative;
@@ -30,4 +69,4 @@ li{
     color: red;
     width: 2cm;
     height: 2cm;
-}
+} */
