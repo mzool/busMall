@@ -48,12 +48,12 @@ var previous = [];
 var randomNumb;
 var showtimes = [];
 var takeValues = [];
-        var num = [];
-for (var i = 0; i < 20; i++) {
-    if (localStorage.getItem(allElements[i].name) === null) {
-        localStorage.setItem(allElements[i].name, [allElements[i].timeShowed, allElements[i].timeSelected]); console.log('mmmmmm');
-    }
-}
+var num = [];
+//for (var i = 0; i < 20; i++) {
+//if (localStorage.getItem(allElements[i].name) === null) {
+//localStorage.setItem(allElements[i].name, [allElements[i].timeShowed, allElements[i].timeSelected]); console.log('mmmmmm');
+//}
+//}
 ///// rendering function//////
 ///////////////////////////////////////////////////////////////////////
 function rendering1() {
@@ -129,15 +129,44 @@ function rendering1() {
         for (var i = 0; i < allElements.length; i++) {
             timeUserSelect[i] = allElements[i].timeSelected;
             showtimes[i] = allElements[i].timeShowed;
-            localStorage.setItem(allElements[i].name, allElements[i].timeShowed);
+       
+            if (localStorage.length === 0) {
+                for (var i = 0; i < allElements.length; i++) {
+                     localStorage.setItem(allElements[i].name, allElements[i].timeSelected); }
+            }
+           
+              
+                takeValues[i] = localStorage.getItem(allElements[i].name);
+                num[i]=parseInt(takeValues[i]);
 
-            takeValues[i] = localStorage.getItem(allElements[i].name);
-            num[i] = JSON.parse(takeValues[i]);
-
+                // console.log(takeValues);
             
-    
-        }
+        }     //num[i]=JSON.parse(takeValues[i]);
+        
+      console.log(takeValues);
+    //   num=parseInt(takeValues);
       console.log(num);
+     
+        for (var i = 0; i < allElements.length; i++) {
+            localStorage.setItem(allElements[i].name, (allElements[i].timeSelected+num[i] ));}
+            // localStorage.setItem(allElements[i].name, allElements[i].timeSelected);
+
+            // takeValues[i] = localStorage.getItem(allElements[i].name);
+
+            // num[i] = JSON.parse(takeValues[i]);
+
+
+
+
+        
+
+        //takeValues[i] = localStorage.getItem(allElements[i].name);
+        //num[i] = JSON.parse(takeValues[i]);
+
+
+
+
+        
 
 
 
@@ -294,3 +323,17 @@ function takeNumber(event) {
 //     localStorage.setItem(allElements[i].name,[allElements[i].timeShowed,allElements[i].timeSelected]);
 // }
 // localStorage.getItem(bag.timeSelected);
+
+
+// function setLocal() {
+//     if (localStorage.length === 0) {
+//         console.log('ysd');
+//          localStorage.setItem(allElements[i].name, [allElements[i].timeShowed, allElements[i].timeSelected]); }
+//          else{console.log(localStorage.length);}
+
+// }
+
+
+
+
+//else{console.log('no');}
