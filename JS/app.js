@@ -35,7 +35,7 @@ function randomSelector1() {
     return Math.floor(Math.random() * allElements.length);
 }
 /////////////////////////////////////////////////////////////////////////////
-// var storage=[];
+var storage=[];
 // for (let i = 0; i < allElements.length; i++) {
 //   storage[allElements[i].name]= JSON.stringify(allElements[i]);
 //   console.log(storage);
@@ -58,19 +58,20 @@ var chartLable = [];
 var rounds;
 var previous = [];
 var randomNumb;
-var showtimes=[];
+var showtimes = [];
 ///// rendering function//////
 ///////////////////////////////////////////////////////////////////////
 function rendering1() {
 
     if (attempts < rounds) {
         randomNumb = randomSelector1();
-        while(randomNumb === 18 || randomNumb === 19) { var randomNumb = 17 }
-        if(attempts>0){
-      while (randomNumb === previous[attempts - 1] || randomNumb === (previous[attempts - 1] + 1) || randomNumb === (previous[attempts - 1] + 2)|| randomNumb === (previous[attempts - 1] - 1) || randomNumb === (previous[attempts - 1] - 2)) { randomNumb+=3}
-      if(randomNumb>=18){randomNumb=0;}}
-      previous[attempts] = randomNumb;
-    console.log(randomNumb);
+        while (randomNumb === 18 || randomNumb === 19) { var randomNumb = 17 }
+        if (attempts > 0) {
+            while (randomNumb === previous[attempts - 1] || randomNumb === (previous[attempts - 1] + 1) || randomNumb === (previous[attempts - 1] + 2) || randomNumb === (previous[attempts - 1] - 1) || randomNumb === (previous[attempts - 1] - 2)) { randomNumb += 3 }
+            if (randomNumb >= 18) { randomNumb = 0; }
+        }
+        previous[attempts] = randomNumb;
+        console.log(randomNumb);
         firstImg = document.createElement('img');
         firstImg.src = allElements[randomNumb].path;
         render.appendChild(firstImg);
@@ -126,13 +127,14 @@ function rendering1() {
     }
     /////////////////////////////////////////////////////////
     else {
-       
 
         for (var i = 0; i < allElements.length; i++) {
             timeUserSelect[i] = allElements[i].timeSelected;
             showtimes[i] = allElements[i].timeShowed;
+            localStorage.setItem(allElements[i].name,[allElements[i].timeShowed,allElements[i].timeSelected]);
+
         }
-      localStorage.getItem(bag);
+        localStorage.getItem(bag);
 
         var button = document.createElement('button');
         render.appendChild(button);
@@ -177,13 +179,13 @@ function rendering1() {
                             'rgba(153, 102, 255, 1)',
                             'rgb(103, 247, 29)',
                             'rgba(255, 159, 64, 1)',
-                          ],
+                        ],
                         borderColor: [
                             'rgba(200, 200, 200, 1)',
-                          
+
                         ],
                         borderWidth: 1
-                    },{
+                    }, {
                         label: 'showed',
                         data: showtimes,
 
@@ -208,15 +210,15 @@ function rendering1() {
                             'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)',
                             'rgb(103, 247, 29)',
-                            
-                          ],
+
+                        ],
                         borderColor: [
                             'rgba(200,200, 200, 1)',
-                          
+
                         ],
                         borderWidth: 1
                     }]
-                    
+
                 },
                 options: {
                     scales: {
@@ -228,8 +230,8 @@ function rendering1() {
                     }
                 }
             });
-            
-             button.removeEventListener('click', showlist);
+
+            button.removeEventListener('click', showlist);
         }
     }
 }
@@ -239,8 +241,8 @@ function rendering1() {
 
 for (var i = 0; i < allElements.length; i++) {
     chartLable[i] = allElements[i].name;
-    
-    
+
+
 }
 
 ////////////////////////////////////////////////
