@@ -1,72 +1,104 @@
 
 body{
-    max-width: 100%;
-    max-height: 2000px;
+    
     display: grid;
-    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-rows: 0fr 1fr 0fr;
 }
-header{
-    background-color: rgb(235, 63, 20);
-    margin-bottom: 3px;
-    opacity: .5;
-   border-bottom: dashed black;
-}
+
 
 main{
-    background-color: wheat ;
+    height:1000px;
+    background-color:rgba(17, 53, 77, 0.7) ;
+    border: blanchedalmond solid;
 
 }
-footer{
-    background-color:whitesmoke;
-    margin-top: 3px;
-    opacity: .5;
-   border-bottom: dashed black;
-}
+
 form{
-    border: solid black;
+    border: solid rgb(173, 33, 33);
+    border-radius: 10px;
     width: fit-content;
-    color: blue;
+    color: rgb(199, 199, 247);
     position: relative;
-    left: 300px;
-    top: 10px;
+    left: 170px;
+    top: 300px;
+    font-size: 1cm;
+    background-color: rgb(7, 1, 1);
+    padding: 3px;
 }
 input:last-child{
-    color: black;
-    background-color: crimson;
+    color: rgb(11, 17, 11);
+    background-color: rgb(235, 230, 231);
+    font-size: 1cm;
+}
+input:last-child:hover{
+    color: rgb(47, 0, 255);
+    background-color: red;
+    border-radius: 10px;
+}
+input:nth-child(2){
+    background-color: rgb(126, 54, 96);
+    font-size: .7cm;
+   position: relative;
+   bottom: 4px;
+ color: rgb(250, 244, 244);
+}
+input:nth-child(2):hover{
+    background-color: rgb(76, 83, 8);
 }
 img{
-    height: 3cm;
-    width: 5cm;
+    height: 4cm;
+    width: 6cm;
     margin: 5px;
-    border: solid black;
-    display:inline-block;
+    border: solid rgb(250, 244, 244);
     position: relative;
-    left: 7cm;
-    top: 2cm;
+    left: 7.5cm;
+    top: 6cm;
 }
-#chart{
-    width: 10cm;
-    height: 5cm;
+img:hover{
+    border-radius: 20px;
+    border-color: red;
+    opacity: .5;
 }
-/* #vote{
 
-    border: solid red;
-    width: 17cm;
-    position: relative;
-    left: 7cm;
-    top: 2cm;
-    height:20cm ; 
-    width: 20cm;
-}
 
 li{
-    font-size: larger;
+    font-size: large;
     position: relative;
-    left: 1cm;
+    left: 1.5cm;
+  top: 10px;
+  width: fit-content;
   
+  
+}
+li:hover{
+    color:cornsilk;
+    font-size: 30px;
 }
 #bb{
     color: red;
-    width: 2cm;
-    height: 2cm;
-} */
+    width: 4cm;
+    height: 3cm;
+    position: relative;
+    left: 15cm;
+    top: 7cm;
+    margin-bottom: 0em;
+    font-size: 1cm;
+} 
+#bb:hover{
+    color: rgb(14, 10, 7);
+    border-radius: 30px;
+    width: 5cm;
+    height: 4cm;
+    background-color:yellow;
+ 
+    font-size: 1.5cm;
+  
+}
+#chart{ 
+    margin-top: 0%;
+    position: relative;
+    top: 15cm;
+}
+#chart:hover{
+background-color: cornsilk;
+}
