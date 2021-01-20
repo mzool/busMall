@@ -37,7 +37,6 @@ function randomSelector1() {
 /////////////////////////////////////////////////////////////////////////////
 
 var render = document.getElementById('vote');
-
 var firstImg;
 var socondtImg;
 var thirdImg;
@@ -47,23 +46,32 @@ var chartLable = [];
 var rounds;
 var previous = [];
 var randomNumb;
-var showtimes=[];
+var showtimes = [];
+var takeValues = [];
+        var num = [];
+for (var i = 0; i < 20; i++) {
+    if (localStorage.getItem(allElements[i].name) === null) {
+        localStorage.setItem(allElements[i].name, [allElements[i].timeShowed, allElements[i].timeSelected]); console.log('mmmmmm');
+    }
+}
 ///// rendering function//////
 ///////////////////////////////////////////////////////////////////////
 function rendering1() {
 
     if (attempts < rounds) {
         randomNumb = randomSelector1();
-        while(randomNumb === 18 || randomNumb === 19) { var randomNumb = 17 }
-        if(attempts>0){
-      while (randomNumb === previous[attempts - 1] || randomNumb === (previous[attempts - 1] + 1) || randomNumb === (previous[attempts - 1] + 2)|| randomNumb === (previous[attempts - 1] - 1) || randomNumb === (previous[attempts - 1] - 2)) { randomNumb+=3}
-      if(randomNumb>=18){randomNumb=0;}}
-      previous[attempts] = randomNumb;
-    console.log(randomNumb);
+        while (randomNumb === 18 || randomNumb === 19) { var randomNumb = 17 }
+        if (attempts > 0) {
+            while (randomNumb === previous[attempts - 1] || randomNumb === (previous[attempts - 1] + 1) || randomNumb === (previous[attempts - 1] + 2) || randomNumb === (previous[attempts - 1] - 1) || randomNumb === (previous[attempts - 1] - 2)) { randomNumb += 3 }
+            if (randomNumb >= 18) { randomNumb = 0; }
+        }
+        previous[attempts] = randomNumb;
+        console.log(randomNumb);
         firstImg = document.createElement('img');
         firstImg.src = allElements[randomNumb].path;
         render.appendChild(firstImg);
         allElements[randomNumb].timeShowed++;
+
         firstImg.addEventListener('click', choose);
         function choose(event) {
             event.preventDefault();
@@ -83,6 +91,7 @@ function rendering1() {
         socondtImg.src = allElements[randomNumb + 1].path;
         render.appendChild(socondtImg);
         allElements[randomNumb + 1].timeShowed++;
+
         socondtImg.addEventListener('click', choose1);
         function choose1(event) {
             event.preventDefault();
@@ -102,6 +111,7 @@ function rendering1() {
         thirdImg.src = allElements[randomNumb + 2].path;
         render.appendChild(thirdImg);
         allElements[randomNumb + 2].timeShowed++;
+
         thirdImg.addEventListener('click', choose2);
         function choose2(event) {
             event.preventDefault();
@@ -115,14 +125,23 @@ function rendering1() {
     }
     /////////////////////////////////////////////////////////
     else {
-       
 
         for (var i = 0; i < allElements.length; i++) {
             timeUserSelect[i] = allElements[i].timeSelected;
             showtimes[i] = allElements[i].timeShowed;
-            localStorage.setItem(allElements[i].name,[allElements[i].timeShowed,allElements[i].timeSelected]);
+            localStorage.setItem(allElements[i].name, allElements[i].timeShowed);
+
+            takeValues[i] = localStorage.getItem(allElements[i].name);
+            num[i] = JSON.parse(takeValues[i]);
+
+            
+    
         }
-      
+      console.log(num);
+
+
+
+
 
         var button = document.createElement('button');
         render.appendChild(button);
@@ -167,13 +186,13 @@ function rendering1() {
                             'rgba(153, 102, 255, 1)',
                             'rgb(103, 247, 29)',
                             'rgba(255, 159, 64, 1)',
-                          ],
+                        ],
                         borderColor: [
                             'rgba(200, 200, 200, 1)',
-                          
+
                         ],
                         borderWidth: 1
-                    },{
+                    }, {
                         label: 'showed',
                         data: showtimes,
 
@@ -198,15 +217,15 @@ function rendering1() {
                             'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)',
                             'rgb(103, 247, 29)',
-                            
-                          ],
+
+                        ],
                         borderColor: [
                             'rgba(200,200, 200, 1)',
-                          
+
                         ],
                         borderWidth: 1
                     }]
-                    
+
                 },
                 options: {
                     scales: {
@@ -218,8 +237,9 @@ function rendering1() {
                     }
                 }
             });
-            
-             button.removeEventListener('click', showlist);
+
+            button.removeEventListener('click', showlist);
+            render.removeChild(button);
         }
     }
 }
@@ -229,8 +249,9 @@ function rendering1() {
 
 for (var i = 0; i < allElements.length; i++) {
     chartLable[i] = allElements[i].name;
-    
-    
+
+
+
 }
 
 ////////////////////////////////////////////////
@@ -259,3 +280,17 @@ function takeNumber(event) {
     rendering1();
 }
 //////////////////////////////////////////////////////////////////
+// localStorage.clear();
+// for (var i = 0; i < allElements.length; i++){
+
+
+// }
+// //  console.log(allElements[2].name);
+// var bagg = localStorage.setItem(bag.name,bag.path);
+// console.log(bagg);
+
+// for (var i = 0; i < allElements.length; i++) {
+
+//     localStorage.setItem(allElements[i].name,[allElements[i].timeShowed,allElements[i].timeSelected]);
+// }
+// localStorage.getItem(bag.timeSelected);
