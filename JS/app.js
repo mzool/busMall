@@ -30,12 +30,10 @@ var glass = new BusMal('glass', "assets/wine-glass.jpg");
 ////// Array for all objects///////
 var allElements = [bag, banana, bathroom, boots, breakfast, chair, bubblegum, cthulhu, duck, dragon, pen, sweep, scissors, shark, petSweep, tauntaun, unicorn, usb, water, glass];
 //////////////
-
 function randomSelector1() {
     return Math.floor(Math.random() * allElements.length);
 }
 /////////////////////////////////////////////////////////////////////////////
-
 var render = document.getElementById('vote');
 var firstImg;
 var socondtImg;
@@ -57,7 +55,6 @@ var num = [];
 ///// rendering function//////
 ///////////////////////////////////////////////////////////////////////
 function rendering1() {
-
     if (attempts < rounds) {
         randomNumb = randomSelector1();
         while (randomNumb === 18 || randomNumb === 19) { var randomNumb = 17 }
@@ -71,7 +68,6 @@ function rendering1() {
         firstImg.src = allElements[randomNumb].path;
         render.appendChild(firstImg);
         allElements[randomNumb].timeShowed++;
-
         firstImg.addEventListener('click', choose);
         function choose(event) {
             event.preventDefault();
@@ -81,17 +77,12 @@ function rendering1() {
             render.removeChild(thirdImg);
             attempts++;
             rendering1();
-
         }
-
-
         //////////////////////////////////////////////////////
-
         socondtImg = document.createElement('img');
         socondtImg.src = allElements[randomNumb + 1].path;
         render.appendChild(socondtImg);
         allElements[randomNumb + 1].timeShowed++;
-
         socondtImg.addEventListener('click', choose1);
         function choose1(event) {
             event.preventDefault();
@@ -101,12 +92,8 @@ function rendering1() {
             render.removeChild(thirdImg);
             attempts++;
             rendering1();
-
-
         }
-
         ///////////////////////////////////////////////////////////
-
         thirdImg = document.createElement('img');
         thirdImg.src = allElements[randomNumb + 2].path;
         render.appendChild(thirdImg);
@@ -125,53 +112,25 @@ function rendering1() {
     }
     /////////////////////////////////////////////////////////
     else {
+        var firstRound = false;
+        if (localStorage.length === 0) {
+            firstRound = true;
+            for (var j = 0; j < allElements.length; j++) {
+                localStorage.setItem(allElements[j].name, allElements[j].timeSelected);
+            }
+        }
 
         for (var i = 0; i < allElements.length; i++) {
             timeUserSelect[i] = allElements[i].timeSelected;
             showtimes[i] = allElements[i].timeShowed;
-       
-            if (localStorage.length === 0) {
-                for (var i = 0; i < allElements.length; i++) {
-                     localStorage.setItem(allElements[i].name, allElements[i].timeSelected); }
+            takeValues[i] = JSON.parse(localStorage.getItem(allElements[i].name))
+        }
+        // console.log(takeValues);
+        if (firstRound === false) {
+            for (var i = 0; i < allElements.length; i++) {
+                localStorage.setItem(allElements[i].name, (allElements[i].timeSelected + takeValues[i]));
             }
-           
-              
-                takeValues[i] = localStorage.getItem(allElements[i].name);
-                num[i]=parseInt(takeValues[i]);
-
-                // console.log(takeValues);
-            
-        }     //num[i]=JSON.parse(takeValues[i]);
-        
-      console.log(takeValues);
-    //   num=parseInt(takeValues);
-      console.log(num);
-     
-        for (var i = 0; i < allElements.length; i++) {
-            localStorage.setItem(allElements[i].name, (allElements[i].timeSelected+num[i] ));}
-            // localStorage.setItem(allElements[i].name, allElements[i].timeSelected);
-
-            // takeValues[i] = localStorage.getItem(allElements[i].name);
-
-            // num[i] = JSON.parse(takeValues[i]);
-
-
-
-
-        
-
-        //takeValues[i] = localStorage.getItem(allElements[i].name);
-        //num[i] = JSON.parse(takeValues[i]);
-
-
-
-
-        
-
-
-
-
-
+        }
         var button = document.createElement('button');
         render.appendChild(button);
         button.id = "bb";
@@ -193,7 +152,6 @@ function rendering1() {
                     datasets: [{
                         label: 'selected',
                         data: timeUserSelect,
-
                         backgroundColor: [
                             'rgba(255, 99, 132, 1)',
                             'rgba(54, 162, 235, 1)',
@@ -224,7 +182,6 @@ function rendering1() {
                     }, {
                         label: 'showed',
                         data: showtimes,
-
                         backgroundColor: [
                             'rgba(200, 0, 0, 1)',
                             'rgba(255, 99, 132, 1)',
@@ -246,15 +203,12 @@ function rendering1() {
                             'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)',
                             'rgb(103, 247, 29)',
-
                         ],
                         borderColor: [
                             'rgba(200,200, 200, 1)',
-
                         ],
                         borderWidth: 1
                     }]
-
                 },
                 options: {
                     scales: {
@@ -273,16 +227,9 @@ function rendering1() {
     }
 }
 ///////////////////////////////////////////////////////////////////////////////
-
-
-
 for (var i = 0; i < allElements.length; i++) {
     chartLable[i] = allElements[i].name;
-
-
-
 }
-
 ////////////////////////////////////////////////
 var form = document.createElement('form');
 render.appendChild(form);
@@ -309,31 +256,3 @@ function takeNumber(event) {
     rendering1();
 }
 //////////////////////////////////////////////////////////////////
-// localStorage.clear();
-// for (var i = 0; i < allElements.length; i++){
-
-
-// }
-// //  console.log(allElements[2].name);
-// var bagg = localStorage.setItem(bag.name,bag.path);
-// console.log(bagg);
-
-// for (var i = 0; i < allElements.length; i++) {
-
-//     localStorage.setItem(allElements[i].name,[allElements[i].timeShowed,allElements[i].timeSelected]);
-// }
-// localStorage.getItem(bag.timeSelected);
-
-
-// function setLocal() {
-//     if (localStorage.length === 0) {
-//         console.log('ysd');
-//          localStorage.setItem(allElements[i].name, [allElements[i].timeShowed, allElements[i].timeSelected]); }
-//          else{console.log(localStorage.length);}
-
-// }
-
-
-
-
-//else{console.log('no');}
